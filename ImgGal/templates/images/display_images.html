@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %} Display Images {% endblock title %}
+{% block body %}
+
+<div class="container">
+    <div class="row">
+        {% for image in users.object_list %}
+           <div class="column m-2" style="width: 18rem;">
+                <a href="{{image.image.url}}" target="_blank">
+                <img width="450" height="300" src="{{image.image.url}}" class="card-img-top" alt="{{image.name}}"></a>
+        <div class="card-body">
+        </div>
+    </div>
+        {% endfor %}
+    </div>
+    <a href="{{image.image.url}}" target="_blank">
+    <img class="north" src="{{image.image.url}}" alt="{{image.name}}">
+</a>
+    
+{% if users.has_other_pages %}
+<nav aria-label="Page navigation example">
+  <ul class="pagination justify-content-center">
+    {% if users.has_previous %}
+    <li class="page-item"><a class="page-link" href="?page={{ users.previous_page_number }}">Previous</a></li>
+    {% comment %} {% else %}
+      <li class="disabled"><span>&laquo;</span></li> {% endcomment %}
+    {% endif %}
+    {% for i in users.paginator.page_range %}
+      {% if users.number == i %}
+    <li class="page-item"><a class="page-link">{{ i }}</a></li>
+      {% else %}
+    <li class="active" class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
+    {% endfor %}
+    {% if users.has_next %}
+    <li class="page-item"><a class="page-link" href="?page={{ users.next_page_number }}">Next</a></li>
+      {% comment %} {% else %}
+      <li class="disabled"><span>&raquo;</span></li> {% endcomment %}
+    {% endif %}
+  </ul>
+</nav>
+{% endif %}
+  
+        </div>
+{% endblock body%}
+
+
+
+ 
